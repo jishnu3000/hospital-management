@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Appointments</title>
+    <link rel="stylesheet" href="./css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Appointments Management</h1>
+
+        <button onclick="window.location.href='dashboard.html'" class="back-button">⬅ Back to Dashboard</button>
+
+        <h2>Appointments List</h2>
+        <div id="appointments-list"></div>
+
+        <h2>Schedule Appointment</h2>
+        <form id="add-appointment-form">
+            <input type="text" id="appointment-patient-id" placeholder="Patient ID" required>
+            <input type="text" id="appointment-doctor-id" placeholder="Doctor ID" required>
+            <input type="datetime-local" id="appointment-date" required>
+            <button type="submit">Schedule Appointment</button>
+        </form>
+    </div>
+
+    <script src="./js/appointment.js"></script>
+</body>
+</html>
