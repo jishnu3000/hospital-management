@@ -1,15 +1,22 @@
 package middleware
 
 import (
-    "github.com/gorilla/handlers"
-    "net/http"
+	"net/http"
 )
 
-// CORSMiddleware sets up CORS for the application
+// CORS Middleware
 func CORSMiddleware(next http.Handler) http.Handler {
-    return handlers.CORS(
-        handlers.AllowedOrigins([]string{"http://127.0.0.1:5500"}), // Allow frontend requests
-        handlers.AllowedMethods([]string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}), // Allow HTTP methods
-        handlers.AllowedHeaders([]string{"Content-Type", "Authorization"}), // Allow necessary headers
-    )(next)
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:5173") // Allow Vite frontend
+		w.Header().Set("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS")
+		w.Header().Set("Access-Control-Allow-Headers", "Content-Type, Authorization")
+
+		// Handle preflight requests (OPTIONS method)
+		if r.Method == "OPTIONS" {
+			w.WriteHeader(http.StatusOK)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
 }
